@@ -1,0 +1,67 @@
+/*******************************************************************************
+ * Custom overides for aesthetics.
+ ******************************************************************************/
+
+ .blog_image_vpad {
+   margin-top: 2vw;
+   margin-bottom: 2vw;
+ }
+
+ .bar {
+  fill: #1b3e5c;
+}
+
+.map_takeaways {
+  font: 400 18px Lato, sans-serif;
+  line-height: 1.5em;
+}
+
+.legend {
+  background-color: white;
+  padding: 5px 10px 10px 10px;
+  border-radius: 5px;
+  text-align: left;
+}
+
+.circle {
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-top: 7px;
+  margin-bottom: -2px;
+}
+
+.map_panel {
+  float: left;
+  width: 375px;
+  height: 500px;
+      /* font-family: "Arial", Arial, serif; */
+  padding: 20px 10px 10px 10px;
+  line-height: 1.4em;
+  border-style: solid;
+  border-width: 2px 2px 2px 2px;
+  border-color: black;
+  text-align: left;
+
+}
+
+.map_panel_header {
+  font-size: 1.2em;
+  padding-bottom:10px;
+  font-weight: bold;
+
+}
+
+.map_panel_box {
+  height: 100px;
+}
+
+#mapid {
+  width: 700px;
+  height: 500px;
+  float: left;
+  border-style: solid;
+  border-width: 2px 0px 2px 2px;
+  border-color: black;
+}

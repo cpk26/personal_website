@@ -1,0 +1,317 @@
+---
+layout: post
+title: Mapping Industrial Facility Greenhouse Gas Emissions in BC
+leaflet: True
+tags: climate-science data-visualization
+description: Visualizations are a great tool for gaining intuition about a dataset. When the dataset has a geo-spatial component, overlaying the data on a map can be a starting point for exploratory analysis. In this blog post I want to share a map of industrial facility greenhouse gas emissions in British Columbia. It's based on this 2016 dataset, wich covers industrial facilities emitting 10,000 tonnes or more of carbon dioxide (C02) equivalent per year, as well electricity import operations in British Columbia. 
+---
+
+
+        <div class='container-fluid'>
+            <div class="row">
+                <p>     Visualizations are a great tool for gaining intuition about a dataset. When the dataset has a
+                        geo-spatial component, overlaying the data on a map can be a starting point for exploratory analysis.
+                        In this blog post I want to share a map of industrial facility greenhouse gas emissions in British
+                        Columbia. It's based on this 2016 <a href="https://www2.gov.bc.ca/gov/content/environment/climate-change/data/industrial-facility-ghg">
+                            dataset</a>, wich covers industrial facilities emitting 10,000 tonnes or more of carbon dioxide (C0<sub>2</sub>)
+                        equivalent per year, as well electricity import operations in British Columbia.<br>
+                        <br>
+                </p>
+            </div>
+        </div>
+
+
+    <div class='container_wrapper' style='text-align: center'>
+        <div style='width: 1100px; display: inline-block; position: relative; left: -150px;'>
+            <div id="mapid"></div>
+
+            <div class="map_panel">
+                <div class='map_panel_header text-center'> Site Overview <br></div>
+
+                <div class="map_panel_box">
+                    <b>Company Name:</b> <span id="company_name"></span> <br>
+                    <b>Facility Name:</b> <span id="facility_name"></span> <br>
+                    <b>Primary Activity:</b> <span id="primary_activity"></span> <br>
+                    <b>Region:</b> <span id="region"></span> <br>
+                </div>
+
+                <div class='map_panel_header text-center'> <br> Emissions Data <br></div>
+
+                <svg id="chart" width="350" height="200"></svg> <br><br>
+                <i>
+                    * Volume is given in C0<sub>2</sub> equivalent<br>
+                    * Circle area on the map is proportional to total <br> &nbsp; emissions from a site
+                </i>
+
+            </div>
+        </div>
+        <p style='font-style: italic;'>Click on a circle to see the corresponding facility data</p>
+
+    </div>
+
+    <div class='container-fluid'>
+
+        <div class="row">
+
+                <p>
+                    <br>
+                    <br>
+                    A few things are apparant from exploring the map:
+                </p>
+                <ul>
+                    <li> There are only two types of facilities, both related to oil and gas.</li>
+                    <li> Facilities are concentrated in the Northeast of British Columbia.</li>
+                    <li> There are four facilities with relatively greater emissions than the rest.</li>
+                    <li> The primary greenhouse gas emission is C0<sub>2</sub>. Although some sites have significant CH<sub>4</sub>
+                        emissions, there is little emission of other gases in the dataset.</li>
+                </ul>
+    
+                <p>
+                    This data suggests that efforts to reduce greenhouse gases from industrial sites will have
+                    concentrated impacts. It will primarily affect the oil and gas industry, and primarily affect the
+                    Northeast
+                    districts of Peace River, Fraser-Fort George, and Northern Rockies. Further, the four sites with
+                    greatest emissions are all owned by a single company. (Note: Enbridge and Spectra Energy
+                    Transmission merged in
+                    February 2017, after this dataset was released.)
+                </p>
+    
+                <p>
+                    What more could you do with this dataset? If your aim is to understand how industrial facility
+                    emissions have changed over
+                    time, this map can be extended to show facility emissions starting from 2010. Understanding trends in
+                    the
+                    data would be critical for measuring the
+                    impact of any new regulations. Since most of these industrial facilities are located in the Northeast
+                    of the
+                    province, it would be good to incorporate economic data to understand the importance of
+                    these facilities to
+                    to the job market and tax revenue of that region.
+    
+                    It would also be intriguing to compare this data to other emission datasets, either from across
+                    the country,
+                    or from different economic sectors, to provide a better context of the relative magnitude of these
+                    greenhouse gas emissions.
+    
+    
+                </p>
+    
+                <p>
+    
+                    When I first looked at the dataset, I was suprised that Vancouver Airport (YVR) wasn't on the
+                    list, nor
+                    any mining or forestry operations.
+                    They are likely under a different classification. For reference, YVR <a href="http://www.yvr.ca/en/2016/our-environment/reducing-emissions">
+                        reports </a> emissions
+                    of 311,304 tonnes C0<sub>2</sub> equivalent in the year 2012 when accounting for operations, purchased
+                    electricity, and aircraft landing, taxiing, and takeoffs. It would be the fifth large emitter of
+                    greenhouse gases in
+                    this dataset.
+                </p>
+                <p>
+                    Data visualization allows us to understand complex datasets in concise manner. Visualizations can
+                    provide intuition, insight, and help us ask better questions.     
+                </p>
+    
+        </div>
+    </div>
+    
+    
+
+
+<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+    crossorigin=""></script>
+<script type="text/javascript" src="https://stamen-maps.a.ssl.fastly.net/js/tile.stamen.js?v1.3.0"></script>
+<script type="text/javascript" src="/assets/blog/bc_ghg/sites.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+<script src="//d3js.org/d3.v5.min.js"></script>
+
+<script>
+    var layer = new L.StamenTileLayer("terrain");
+    var map = new L.Map("mapid", {
+        center: new L.LatLng(54.2, -127.6),
+        zoom: 5
+    });
+    map.addLayer(layer);
+
+
+    var legend = L.control({ position: 'bottomleft' });
+    legend.onAdd = function (map) {
+
+        var div = L.DomUtil.create('div', 'info legend');
+        labels = ["<span style='line-height: 25px; font-size:14px'> <strong>Legend</strong> </span>"],
+            categories = ['Conventional Oil and Gas Extraction', 'Pipeline Transportation of Natural Gas'];
+
+        for (var i = 0; i < categories.length; i++) {
+
+            div.innerHTML +=
+                labels.push(
+                    '<i class="circle" style="opacity: 0.7; background-color:' + getColor(categories[i]) + '"></i> <span style="font-size:14px"> &nbsp;' +
+                    (categories[i] ? categories[i] : '</span> +'));
+
+        }
+        div.innerHTML = labels.join('<br>');
+        return div;
+    };
+    legend.addTo(map);
+
+
+    function getColor(d) {
+        return d === 'Pipeline Transportation of Natural Gas' ? "midnightblue" :
+            d === 'Conventional Oil and Gas Extraction' ? "indigo" : "black";
+
+    }
+
+    var emissionLabels = ['CO2 Fossil', 'CO2 Biomass', 'CH4', 'N2O', 'HFCs', 'PFCs', 'SF6']
+    var emissionEnum = [0, 1, 2, 3, 4, 5, 6]
+
+    drawPlot([0, 0, 0, 0, 0, 0, 0])
+
+    for (const site of site_data) {
+        lat = site['Latitude']
+        long = site['Longitude']
+        tot = site['Grand Total']
+
+
+        if (site["NAICS Code"] === '486210') {
+            site_color = 'midnightblue'
+        } else {
+            site_color = 'indigo'
+        }
+
+        var marker = L.circle([lat, long], {
+            radius: Math.max(150 * Math.sqrt(tot / Math.PI)),
+            stroke: true,
+            opacity: 0.55,
+            fillOpacity: 0.55,
+            color: site_color,
+        }).addTo(map);
+
+        marker.data = site
+
+        marker.on('click', onClick);
+    }
+
+    function onClick(e) {
+        data = this.data
+        $('#company_name').html(data['Company Name'])
+        $('#facility_name').html(data['Facility Name'])
+        $('#primary_activity').html(data['Primary Activity'])
+
+        $('#region').html(data['Region'])
+        $('#lat').html(data['Latitude'])
+        $('#long').html(data['Longitude'])
+
+        emissions = new Array(emissionEnum.length)
+        for (var i = 0; i < emissionEnum.length; i++) {
+            emissions[i] = data[emissionLabels[i]]
+        }
+
+        drawPlot(emissions)
+    };
+
+    function drawPlot(emissions) {
+
+        $("#chart").empty();
+
+
+        var svg = d3.select("#chart")
+
+
+        margin = {
+            top: 5,
+            right: 5,
+            bottom: 40,
+            left: 70
+        }
+
+        width = +svg.attr("width") - margin.left - margin.right
+        height = +svg.attr("height") - margin.top - margin.bottom
+
+        g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        var x = d3.scaleBand()
+            .domain(emissionEnum)
+            .rangeRound([0, width])
+            .padding(0.3);
+
+        var y = d3.scaleLinear()
+            .domain([0, 1.2 * Math.ceil(Math.max(...emissions), 1e4)])
+            .rangeRound([height, 0])
+
+        xAxis = d3.axisBottom(x)
+            .tickFormat(function (d, i) { return emissionLabels[i] });
+
+
+        g.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis)
+            .selectAll(".tick text")
+            .call(wrap, x.bandwidth());
+
+
+        g.append("text")
+            .attr("transform",
+                "translate(" + (width / 2) + " ," +
+                (height + margin.top + 30) + ")")
+            .style("text-anchor", "middle")
+            .text("Emission");
+
+        yAxis = d3.axisLeft(y)
+            .tickSizeOuter(0)
+
+        g.append("g")
+            .call(yAxis)
+
+        g.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0 - margin.left)
+            .attr("x", 0 - (height / 2))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .html("Volume* (tonnes)");
+
+        g.selectAll(".bar")
+            .data(emissions)
+            .enter().append("rect")
+            .attr("class", "bar")
+            .attr("x", function (d, i) {
+                return x(i);
+            })
+            .attr("y", function (d) {
+                return y(d);
+            })
+            .attr("width", x.bandwidth())
+            .attr("height", function (d) {
+                return height - y(d);
+            });
+
+
+        function wrap(text, width) {
+            text.each(function () {
+                var text = d3.select(this),
+                    words = text.text().split(/\s+/).reverse(),
+                    word,
+                    line = [],
+                    lineNumber = 0,
+                    lineHeight = 1.1, // ems
+                    y = text.attr("y"),
+                    dy = parseFloat(text.attr("dy")),
+                    tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+                while (word = words.pop()) {
+                    line.push(word);
+                    tspan.text(line.join(" "));
+                    if (tspan.node().getComputedTextLength() > width) {
+                        line.pop();
+                        tspan.text(line.join(" "));
+                        line = [word];
+                        tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+                    }
+                }
+            });
+        }
+
+
+    }
+</script>
