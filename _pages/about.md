@@ -18,7 +18,7 @@ social: true  # includes social icons at the bottom of the page
 
 Hi, I'm Conrad. I'm a machine learning scientist focused on earth science and geospatial problems. 
 
-Currently I develop prospectivity maps using deep learning to discover the critical mineral resources needed for building clean technologies. I also develop proof-of-concept models and perform technology evaluation for adjacent industrial problems. 
+Recently I've focused on prospectivity mapping using deep learning to discover the critical mineral resources needed for building clean technologies. I also develop proof-of-concept models and perform technology evaluation for adjacent industrial problems. 
 
 My past work includes constraining predictions of sea level rise from ice sheets through uncertainty quantification of numerical ice flow models, and physical modelling of ice-hydrological feedbacks impacting near term sea level rise.
 
