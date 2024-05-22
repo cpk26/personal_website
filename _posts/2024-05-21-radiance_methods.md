@@ -17,7 +17,7 @@ Neural Radiance Fields (NeRF) and Gaussian splatting are recent techniques which
 
 
  <div class="text-center blog_image_vpad_100">
-        {% include figure.html path="assets/blog/radiance_fields/radiance_methods_image.png" caption="Technologies and sectors relevant to NeRFs and Gaussian splatting. Image Credit: Author" class="figure-img img-fluid rounded z-depth-2" zoomable=true %}
+        {% include figure.html path="assets/blog/radiance_fields/radiance_methods_image.png" caption="3D intersects with a spectrum of technologies and sectors. Image Credit: Author" class="figure-img img-fluid rounded z-depth-2" zoomable=true %}
 </div>
 
 
