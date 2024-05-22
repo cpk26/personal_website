@@ -15,6 +15,12 @@ Two standard ways for building 3D replicas are with photogrammetry or with a 3D 
 
 Neural Radiance Fields (NeRF) and Gaussian splatting are recent techniques which add to our repertoire of tools to make 3D replicas. Both are similar to photogrammetry in that they are data-driven and reconstruct a scene based on images. First introduced in 2020 and 2023 respectively, they’ve rapidly grown in popularity -- apps like Polycam enable anyone to make a 3D scan and post it online. Both these techniques present novel solutions to the problems of inverse rendering (estimating physical attributes of a scene) and real-time novel-view synthesis (generating new images of the scene).
 
+
+ <div class="text-center blog_image_vpad_100">
+        {% include figure.html path="assets/blog/radiance_fields/radiance_methods_image.png" caption="Technologies and sectors relevant to NeRFs and Gaussian splatting. Image Credit: Author" class="figure-img img-fluid rounded z-depth-2" zoomable=true %}
+</div>
+
+
 **Neural Radiance Fields**
 
 NeRFs represent 3D scenes using a neural network, rather than an underlying mesh or point cloud. The inputs to the neural network are spatial location \\((x,y,z)\\) and viewing direction \\((\theta, \phi)\\). The outputs are volume density \\((\sigma)\\) and emitted radiance \\((R,G,B)\\). To synthesize a view, points sampled along camera rays are input to the neural network and an image is generated from the outputs using volume rendering techniques. The network learns to represent the scene from a set of training images and camera poses, and is optimized using gradient descent. Once trained, new views are synthesized by repeating the process of querying points along the camera ray and rendering the output of the network.
@@ -62,7 +68,7 @@ NeRFs and Gaussian splatting build on the possibilities of photogrammetry. I sus
 
 
  <div class="text-center blog_image_vpad_100">
-        {% include figure.html path="assets/blog/radiance_fields/oceanfront.png" caption="View from Gaussian splat near Squamish, BC from combined drone footage and LiDAR data. Image Credit: Author" class="figure-img img-fluid rounded z-depth-2" zoomable=true %}
+        {% include figure.html path="assets/blog/radiance_fields/oceanfront.png" caption="View extracted from Gaussian splat of Squamish, BC from combined drone footage and LiDAR data. Image Credit: Author" class="figure-img img-fluid rounded z-depth-2" zoomable=true %}
 </div>
 
 NeRFs and Gaussian splatting intersect with trends in other technologies. On the data collection side, drones have become extremely capable and relatively affordable. Similarly, video and photo quality from modern cell phones is excellent (although worth bearing in mind there is significant post-processing). LiDAR from the iPhone provides positional accuracy on the centimeter scale.  While consumer technology doesn’t match professional equipment, it does have the advantage of being widely available and easy to iterate with. It’s also worth noting the trend of open data, with jurisdictions like British Columbia collecting and releasing a [LiDAR scan](https://lidar.gov.bc.ca/) of the entire province (which can be used to initialize or constrain 3D models).
