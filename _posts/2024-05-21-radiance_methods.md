@@ -2,18 +2,18 @@
 layout: post
 title: "3D in Geospatial: NeRFs, Gaussian Splatting, and Spatial Computing"
 tags: AI radiance-fields nerf gaussian-splatting spatial-computing geospatial 
-description: Neural Radiance Fields and Gaussian splatting provide new ways to create 3D replicas. In this post I explore how they relate to traditional methods such as photogrammetry and 3D engines, their relationship to geospatial, and what applications we might see them in.
+description: Neural radiance fields and Gaussian splatting provide new ways to create 3D replicas. In this post I explore how they relate to traditional methods such as photogrammetry and 3D engines, their relationship to geospatial, and what applications we might see them in.
 ---
 
 
 ---
-Neural Radiance Fields and Gaussian splatting provide new ways to create 3D replicas. In this post I explore how they relate to traditional methods such as photogrammetry and 3D engines, their relationship to geospatial, and what applications we might see them in.
+Neural radiance fields and Gaussian splatting provide new ways to create 3D replicas. In this post I explore how they relate to traditional methods such as photogrammetry and 3D engines, their relationship to geospatial, and what applications we might see them in.
 
 ---
 <br>
 Two standard ways for building 3D replicas are with photogrammetry or with a 3D development engine. Photogrammetry derives a 3D representation from a set of images of the site. The workflow typically uses a structure-from-motion algorithm to determine camera poses (location and orientation from which the photos were taken), then multi-view stereo to create a dense point-cloud, from which you develop a surface reconstruction. Using a 3D engine is conceptually the reverse of photogrammetry. You start with a blank scene and add in all the elements to approximate the real world. This allows you to replicate not only what currently exists, but also imagined past and future states.
 
-Neural Radiance Fields (NeRF) and Gaussian splatting are recent techniques which add to our repertoire of tools to make 3D replicas. Both are similar to photogrammetry in that they are data-driven and reconstruct a scene based on images. First introduced in 2020 and 2023 respectively, they’ve rapidly grown in popularity -- apps like Polycam enable anyone to make a 3D scan and post it online. Both these techniques present novel solutions to the problems of inverse rendering (estimating physical attributes of a scene) and real-time novel-view synthesis (generating new images of the scene).
+Neural radiance fields (NeRF) and Gaussian splatting are recent techniques which add to our repertoire of tools to make 3D replicas. Both are similar to photogrammetry in that they are data-driven and reconstruct a scene based on images. First introduced in 2020 and 2023 respectively, they’ve rapidly grown in popularity -- apps like Polycam enable anyone to make a 3D scan and post it online. Both these techniques present novel solutions to the problems of inverse rendering (estimating physical attributes of a scene) and real-time novel-view synthesis (generating new images of the scene).
 
 
  <div class="text-center blog_image_vpad_100">
@@ -107,7 +107,7 @@ Two specific applications I’m particularly excited about are Digital Twins and
 
 An adjacent use-case to digital twins is spatial-asset management. Considering capturing a facility with NeRFs or Gaussian splatting, and then labelling components within the visualization. Each 3D entity can have a unique id, which is then associated with records, documentation, and maintenance of the system. This can be used to communicate about work that needs to be done. For instance, a visualization can be sent to a service provider ahead of time, with the location of relevant items marked on the visualization. Such an approach would also help with remote maintenance support.
 
-Workplace Safety and Training is important across numerous industries such as mining, construction, and energy. There’s significant advantages to training in 3D (and optionally in VR). Situations where working with a NeRFs or Gaussian splat 3D replica would be advantageous include:
+Workplace safety and training is important across numerous industries such as mining, construction, and energy. There’s significant advantages to training in 3D (and optionally in VR). Situations where working with a NeRFs or Gaussian splat 3D replica would be advantageous include:
 - Hard-to-access sites, such as remote or confined spaces.
 - Training around specific hazards found at a site.
 - Onboarding without interfering with operations.
@@ -123,4 +123,4 @@ NeRFs and Gaussian splatting connect with technological trends. Drones are becom
 
 3D replicas have applications in storytelling and accessing spatial data. They effectively convey a sense of ‘being there’. This can be used as an interface to underlying data pertinent to a real world space: access the data by navigating through the 3D world and select the relevant component. 
 
-If this subject interests you, or you have any comments or questions, I’d love to hear from you. You can contact me on [LinkedIn](https://www.linkedin.com/in/conrad-koziol/), [Twitter/X](https://x.com/cpkoziol), or at ckoziol@gmail.com
+If this subject interests you, or you have any comments or questions, I’d love to hear from you. You can contact me on [LinkedIn](https://www.linkedin.com/in/conrad-koziol/), [Twitter/X](https://x.com/cpkoziol), or at ckoziol@gmail.com.
